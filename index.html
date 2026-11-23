@@ -27,9 +27,10 @@
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0A171F;--ink:#E6EEF2;--mut:#93A7B2;--card:#112431;--line:#22394A;--acc:#4DB3E6;--hot:#E58A7F;--deep:#040C11}}
 :root[data-theme="dark"]{--bg:#0A171F;--ink:#E6EEF2;--mut:#93A7B2;--card:#112431;--line:#22394A;--acc:#4DB3E6;--hot:#E58A7F;--deep:#040C11}
+html{font-size:calc(16px*var(--fs,1))}
 html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
 *,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.85 "IBM Plex Sans Arabic",Tahoma,Arial,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.85 "IBM Plex Sans Arabic",Tahoma,Arial,sans-serif}
 h1,h2,h3{font-family:"Reem Kufi","IBM Plex Sans Arabic",Tahoma,sans-serif;font-weight:700;line-height:1.25;margin:0}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--acc);outline-offset:3px}
@@ -104,12 +105,31 @@ dialog img{width:100%;display:block;max-height:68vh;object-fit:contain;backgroun
 .note{color:var(--mut);font-size:.9rem;margin:8px 0 0}
 .cap h4{font-family:"Reem Kufi",sans-serif;font-size:1.1rem;margin:16px 0 4px}
 @media (max-width:760px){.contact .wrap{grid-template-columns:1fr}}
+
+.skip{position:absolute;right:8px;top:-70px;background:#fff;color:#000;padding:10px 16px;z-index:20;border-radius:2px}.skip:focus{top:8px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.tools button{font:inherit;font-size:.95rem;min-height:44px;padding:8px 14px;border:1.5px solid #EAF3F7;background:rgba(4,12,17,.55);color:#EAF3F7;border-radius:2px;cursor:pointer}
+.tools button[aria-pressed="true"]{background:#EAF3F7;color:#07151D}
+.spk{font:inherit;cursor:pointer;border:1.5px solid var(--acc);background:transparent;color:var(--ink);padding:9px 18px;margin:12px 0 4px;min-height:44px;border-radius:2px}
+:root[data-hc="1"]{--bg:#000;--ink:#fff;--mut:#e8e8e8;--card:#000;--line:#fff;--acc:#ffd400;--hot:#ff9a8f;--deep:#000;--on:#fff}
+[data-hc="1"] .hero p.lead,[data-hc="1"] .about p,[data-hc="1"] .feat p{color:#fff}
+[data-hc="1"] .btn.fill{background:#ffd400;border-color:#ffd400;color:#000}
+[data-hc="1"] .soc a,[data-hc="1"] .feat{border-color:#fff}
+[data-hc="1"] .soc span{color:#ffd400}
+[data-hc="1"] .card{border-bottom-color:#fff}
+[data-hc="1"] dialog{border:2px solid #fff}
+[data-hc="1"] .chip[aria-pressed="true"]{background:#ffd400;color:#000;border-color:#ffd400}
+[data-hc="1"] .hero::after{background:rgba(0,0,0,.72)}
+[data-hc="1"] .tools button[aria-pressed="true"]{background:#ffd400;color:#000;border-color:#ffd400}
 </style>
 </head>
 <body>
+<a class="skip" href="#archive">تخطَّ إلى المعالم</a>
 <header class="hero">
   <img class="bg" id="hb" src="hero.jpg" fetchpriority="high" decoding="async" alt="المسجد العمري الكبير في غزة، تاج عمود ومئذنة">
-  <div class="wrap top"><img id="lg" src="logo.png" alt="شعار مبادرة حكاوي غزة"></div>
+  <div class="wrap top"><img id="lg" src="logo.png" alt="شعار مبادرة حكاوي غزة">
+    <div class="tools" role="group" aria-label="أدوات تسهيل القراءة"><button id="fp" type="button" aria-label="تكبير الخط">أ+</button><button id="fm" type="button" aria-label="تصغير الخط">أ−</button><button id="hc" type="button" aria-pressed="false">تباين عالٍ</button></div></div>
   <div class="wrap bot">
     <h1>أرشيف غزة الأثري</h1>
     <p class="lead">توثيق فوتوغرافي لاثنين وعشرين معلماً تاريخياً في غزة، بعضها دُمّر وبعضها ما زال قائماً.</p>
@@ -182,7 +202,7 @@ dialog img{width:100%;display:block;max-height:68vh;object-fit:contain;backgroun
 <dialog id="lb" aria-label="تفاصيل المعلم">
   <button class="x" id="cl" aria-label="إغلاق">×</button>
   <img id="li" alt="">
-  <div class="cap"><h3 id="lt"></h3><div class="en" id="le"></div><p id="ln" style="margin:0"></p><h4 id="lhh">نبذة تاريخية</h4><p id="lh" style="margin:0;white-space:pre-line"></p><p class="note" id="lm"></p>
+  <div class="cap"><h3 id="lt"></h3><button id="sp" class="spk" type="button">استمع إلى الوصف</button><p class="note" id="sm" role="status" aria-live="polite"></p><div class="en" id="le"></div><p id="ln" style="margin:0"></p><h4 id="lhh">نبذة تاريخية</h4><p id="lh" style="margin:0;white-space:pre-line"></p><p class="note" id="lm"></p>
     <dl><dt>الحقبة</dt><dd id="lr"></dd><dt>الحالة</dt><dd id="ls"></dd><dt>تاريخ التصوير</dt><dd id="ld"></dd></dl></div>
   <div class="nav"><button id="pv">السابق</button><button id="nx">التالي</button></div>
 </dialog>
@@ -223,12 +243,33 @@ g.querySelectorAll("img").forEach(im=>im.addEventListener("error",()=>{const i=+
 document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===c));
 g.querySelectorAll(".card").forEach(k=>k.style.display=(c.dataset.f==="all"||k.dataset.s===c.dataset.f)?"":"none")});
 const lb=$("lb");
-function show(i){cur=i;const m=M[i];$("li").style.display=IMG[i]?"":"none";if(IMG[i])$("li").src=IMG[i];$("li").alt=m[0];$("lt").textContent=m[0];$("le").textContent=m[1];$("ln").textContent=m[6];$("lh").textContent=H[i][0];$("lhh").textContent=H[i][2]||"نبذة تاريخية";$("lm").textContent=H[i][1]?"":"التفاصيل التاريخية الكاملة لهذا المعلم قيد التوثيق.";$("lr").textContent=m[2];$("ls").textContent=m[3];$("ld").textContent=m[5]}
+function show(i){if(typeof stopSp==="function")stopSp();$("sm").textContent="";cur=i;const m=M[i];$("li").style.display=IMG[i]?"":"none";if(IMG[i])$("li").src=IMG[i];$("li").alt=m[0];$("lt").textContent=m[0];$("le").textContent=m[1];$("ln").textContent=m[6];$("lh").textContent=H[i][0];$("lhh").textContent=H[i][2]||"نبذة تاريخية";$("lm").textContent=H[i][1]?"":"التفاصيل التاريخية الكاملة لهذا المعلم قيد التوثيق.";$("lr").textContent=m[2];$("ls").textContent=m[3];$("ld").textContent=m[5]}
 function vlist(){return [...g.querySelectorAll(".card")].filter(k=>k.style.display!=="none").map(k=>+k.dataset.i)}
 function open(i){show(i);lb.showModal()}
 function step(d){const v=vlist(),p=v.indexOf(cur);show(v[(p+d+v.length)%v.length])}
 $("nx").onclick=()=>step(1);$("pv").onclick=()=>step(-1);$("cl").onclick=()=>lb.close();
 lb.addEventListener("click",e=>{if(e.target===lb)lb.close()});
+
+let fi=0,hc=false;const FS=[1,1.15,1.3,1.5];
+try{const s=JSON.parse(localStorage.getItem("a11y")||"{}");fi=Math.min(s.fi||0,FS.length-1);hc=!!s.hc}catch(e){}
+function applyA(){document.documentElement.style.setProperty("--fs",FS[fi]);document.documentElement.dataset.hc=hc?"1":"0";$("hc").setAttribute("aria-pressed",hc);try{localStorage.setItem("a11y",JSON.stringify({fi:fi,hc:hc}))}catch(e){}}
+$("fp").onclick=()=>{fi=Math.min(fi+1,FS.length-1);applyA()};
+$("fm").onclick=()=>{fi=Math.max(fi-1,0);applyA()};
+$("hc").onclick=()=>{hc=!hc;applyA()};
+applyA();
+const SS=window.speechSynthesis;let talking=false;
+if(SS){SS.getVoices();SS.onvoiceschanged=()=>SS.getVoices()}
+function stopSp(){if(SS)SS.cancel();talking=false;$("sp").textContent="استمع إلى الوصف"}
+function textOf(i){const m=M[i];return [m[0],m[2],"الحالة: "+m[3],m[6],H[i][2]||"",H[i][0]].filter(Boolean).join(". ")}
+$("sp").onclick=()=>{
+if(!SS){$("sm").textContent="جهازك لا يدعم القراءة الصوتية.";return}
+if(talking){stopSp();return}
+const v=(SS.getVoices()||[]).find(x=>x.lang&&x.lang.toLowerCase().indexOf("ar")===0);
+$("sm").textContent=v?"":"لم نجد صوتاً عربياً على جهازك، وقد يُقرأ النص بصوت غير واضح.";
+const parts=textOf(cur).split(/[.؟!؛،\n]+\s*/).filter(s=>s.trim().length>1);
+SS.cancel();talking=true;$("sp").textContent="إيقاف الاستماع";
+parts.forEach((t,k)=>{const u=new SpeechSynthesisUtterance(t);u.lang="ar-SA";if(v)u.voice=v;if(k===parts.length-1){u.onend=stopSp}u.onerror=()=>{if(talking)stopSp()};SS.speak(u)})};
+lb.addEventListener("close",stopSp);
 document.addEventListener("keydown",e=>{if(!lb.open)return;if(e.key==="ArrowLeft")step(1);if(e.key==="ArrowRight")step(-1)});
 </script>
 </body>
